@@ -1,0 +1,26 @@
+\documentclass[
+    fontsize=12pt,              % default font size 12pt
+    paper=a4,                   % DIN A4 page format
+    numbers=noenddot,           % remove dots behind chapter numbers (e.g. 1.5 not 1.5.)
+    listof=totoc,               % add list of figures, tables, etc. to ToC
+    listof=entryprefix,         % add entry name to figures, tables, etc.
+    listof=nochaptergap,        % no chapter gap for figures, tables, etc.
+    bibliography=totoc,         % add bibliography to ToC but without a chapter number
+    parskip=half                % half line spacing between paragraphs
+]{article}
+
+\input{preamble}                % Load preamble
+
+\begin{document}
+
+\include{framework/titlepage}   % Title page
+\include{framework/abstract}    % Abstract
+\include{framework/toc}         % Table of contents
+
+\include{content/text}          % Text content
+\include{content/figures}       % Example figures
+
+\include{framework/figures}     % List of figures, bibliography
+\include{framework/affirmation} % Eidesstattliche Erklärung 
+
+\end{document}

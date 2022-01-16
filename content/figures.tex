@@ -1,0 +1,164 @@
+\section{TikZ Figures}
+
+This section demonstrates what can be achieved with TikZ. All figures will automatically be listed in the list of
+figures.
+
+\subsection{OSI Model}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[auto,thick,->,>=stealth',node distance=1.6cm]
+        % Left layers
+        \node (al7) [box] {Layer 7};
+        \node (al6) [box, below of=al7] {Layer 6};
+        \node (al5) [box, below of=al6] {Layer 5};
+        \node (al4) [box, below of=al5] {Layer 4};
+        \node (al3) [box, below of=al4] {Layer 3};
+        \node (al2) [box, below of=al3] {Layer 2};
+        \node (al1) [box, below of=al2] {Layer 1};
+
+        % Right layers
+        \node (bl7) [mainbox, right of=al7, xshift=8cm] {Layer 7};
+        \node (bl6) [mainbox, below of=bl7] {Layer 6};
+        \node (bl5) [mainbox, below of=bl6] {Layer 5};
+        \node (bl4) [mainbox, below of=bl5] {Layer 4};
+        \node (bl3) [mainbox, below of=bl4] {Layer 3};
+        \node (bl2) [mainbox, below of=bl3] {Layer 2};
+        \node (bl1) [mainbox, below of=bl2] {Layer 1};
+
+        % Layer arrows
+        \draw[<->,dashed] (al7) -- node[below] {Application Layer} (bl7);
+        \draw[<->,dashed] (al6) -- node[below] {Presentation Layer} (bl6);
+        \draw[<->,dashed] (al5) -- node[below] {Session Layer} (bl5);
+        \draw[<->,dashed] (al4) -- node[below] {Transport Layer} (bl4);
+        \draw[<->,dashed] (al3) -- node[below] {Network Layer} (bl3);
+        \draw[<->,dashed] (al2) -- node[below] {Data-Link Layer} (bl2);
+        \draw[<->,dashed] (al1) -- node[below] {Physical Layer} (bl1);
+
+        % Layer boxes
+        \draw[dotted] ($(al7.north west)+(-0.15,0.15)$) rectangle ($(bl7.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al6.north west)+(-0.15,0.15)$) rectangle ($(bl6.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al5.north west)+(-0.15,0.15)$) rectangle ($(bl5.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al4.north west)+(-0.15,0.15)$) rectangle ($(bl4.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al3.north west)+(-0.15,0.15)$) rectangle ($(bl3.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al2.north west)+(-0.15,0.15)$) rectangle ($(bl2.south east)+(0.15,-0.15)$);
+        \draw[dotted] ($(al1.north west)+(-0.15,0.15)$) rectangle ($(bl1.south east)+(0.15,-0.15)$);
+
+        % Left layer arrows
+        \draw[->] (al7.south) -- (al6.north);
+        \draw[->] (al6.south) -- (al5.north);
+        \draw[->] (al5.south) -- (al4.north);
+        \draw[->] (al4.south) -- (al3.north);
+        \draw[->] (al3.south) -- (al2.north);
+        \draw[->] (al2.south) -- (al1.north);
+
+        % Right layer arrows
+        \draw[->] (bl1.north) -- (bl2.south);
+        \draw[->] (bl2.north) -- (bl3.south);
+        \draw[->] (bl3.north) -- (bl4.south);
+        \draw[->] (bl4.north) -- (bl5.south);
+        \draw[->] (bl5.north) -- (bl6.south);
+        \draw[->] (bl6.north) -- (bl7.south);
+
+        % Bottom arrow
+        \draw[->] (al1) -- ++(0,-1cm) -| node[below, xshift=-4.9cm] {Physical Link} (bl1);
+    \end{tikzpicture}
+    \caption{OSI Model}
+\end{figure}
+
+\subsection{STUN Server}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[thick,>=stealth']
+        % Boxes
+        \node (C) [mainbox,align=center] {Client\\(10.0.0.2)};
+
+        \begin{pgfonlayer}{foreground}
+            \node (N) [plainbox,right of=C,xshift=4cm,align=center] {NAT\\(10.0.0.1 / 141.28.228.188)};
+        \end{pgfonlayer}
+
+        \node (S) [box,right of=N,xshift=4cm,align=center] {STUN Server\\(192.251.68.241)};
+
+        % Coordinates
+        \coordinate (a) at ($(C.south)+(0,-1cm)$);
+        \coordinate (b) at ($(N.south)+(0,-1cm)$);
+        \coordinate (c) at ($(N.south)+(0,-1.5cm)$);
+        \coordinate (d) at ($(S.south)+(0,-1.5cm)$);
+
+        \coordinate (e) at ($(S.south)+(0,-4cm)$);
+        \coordinate (f) at ($(N.south)+(0,-4cm)$);
+        \coordinate (g) at ($(N.south)+(0,-4.5cm)$);
+        \coordinate (h) at ($(C.south)+(0,-4.5cm)$);
+
+        % Vertical lines
+        \draw[thick] (C.south) -- ++(0,-7.9cm);
+        \draw[thick] (S.south) -- ++(0,-7.9cm);
+        \draw[thick,-Bar] (N.south) -- ++(0,-7.9cm);
+
+        % Horizontal lines
+        \draw[->,thick] (a) -> node[anchor=north,align=left,xshift=-0.2cm]
+            {
+                \textbf{(1) Request}\\
+                Src: 10.0.0.2:5010\\
+                Dst: 192.251.68.241:12345
+            } (b);
+
+        \draw[->,thick] (c) -> node[anchor=north,align=left,xshift=0.2cm]
+            {
+                \textbf{(2) Request}\\
+                Src: 141.28.228.188:10020\\
+                Dst: 192.251.68.241:12345
+            } (d);
+
+        \draw[->,thick] (e) -> node[anchor=north,align=left,xshift=0.2cm]
+            {
+                \textbf{(3) Response}\\
+                MAPPED:\\
+                \hspace{0.2cm}\textbf{141.28.228.188:10020}\\
+                Src: 192.251.68.241:12345\\
+                Dst: 141.28.228.188:10020
+            } (f);
+
+        \draw [->,thick] (g) -> node[anchor=north,align=left,xshift=-0.2cm]
+            {
+                \textbf{(4) Response}\\
+                MAPPED:\\
+                \hspace{0.2cm}\textbf{141.28.228.188:10020}\\
+                Src: 192.251.68.241:12345\\
+                Dst: 10.0.0.2:5010
+            } (h);
+
+        % Dotted outlines
+        \draw[dotted,thick] ($(C.north west)+(-0.15,0.15)$) rectangle node[xshift=-2.75cm,yshift=4.95cm] {Lokal} (4.65cm,-8.5cm);
+        \draw[dotted,thick] ($(S.north west)+(-3.1cm,0.15)$) rectangle node[xshift=2.45cm,yshift=4.95cm] {Internet} ($(S.north east)+(0.15,-9.1cm)$);
+    \end{tikzpicture}
+    \caption{Exchange of ICE messages with the STUN server}
+\end{figure}
+
+\subsection{Secure Data Exchange}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[thick,->,>=stealth',node distance=1.5cm]
+        % Boxes
+        \node[mainbox,minimum width=2cm] (D) {Data};
+        \begin{pgfonlayer}{foreground}
+            \node[plainbox,right of=D,xshift=1cm,rotate=90,minimum width=2cm] (AES) {AES-GCM};
+            \node[plainbox,right of=AES,rotate=90,minimum width=2cm] (TLS) {TLSv1.2+};
+            \node[plainbox,right of=TLS,rotate=90,minimum width=2cm] (ARGON) {Argon2};
+        \end{pgfonlayer}
+        \node[box,right of=ARGON,xshift=1.5cm] (DB) {Database};
+
+        % Arrows
+        \draw[<->,thick] (D.east) -- (DB.west);
+
+        % Dotted boxes
+        \draw[dotted,thick] ($(D.north west)+(-0.15,0.65)$) rectangle node[xshift=-1.75cm,yshift=1.5cm] {Client} ($(AES.south west)+(0.15,-0.15)$);
+        \draw[dotted,thick] ($(ARGON.north east)+(-0.15,0.15)$) rectangle node[xshift=2.15cm,yshift=1.5cm] {Server} ($(DB.south east)+(0.15,-0.65)$);
+
+        % Dashed boxes
+        \draw[dashed,thick] ($(TLS.north east)+(-0.15,0.15)$) rectangle node[yshift=1.5cm] {Internet} ($(TLS.south west)+(0.15,-0.15)$);
+    \end{tikzpicture}
+    \caption{Encryption and Decryption of User Data}
+\end{figure}

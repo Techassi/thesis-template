@@ -1,0 +1,178 @@
+% ##################################################
+% ENCODING
+% ##################################################
+\usepackage{cmap}               % PDF character encoding
+\usepackage[T1]{fontenc}        % 8-bit font encoding
+\usepackage[utf8]{inputenc}     % UTF-8 input encoding
+
+% ##################################################
+% LANGUAGE
+% ##################################################
+% \usepackage[ngerman]{babel} % Uncomment this if you write in German
+\usepackage{csquotes}         % Package for better quotations
+\hyphenation{}                % Here you can define custom hyphenations
+\usepackage{blindtext}        % This package can usually be deleted as this is only used to display some blindtext
+
+% ##################################################
+% DOCUMENT VARIABLES
+% ##################################################
+% Personal data
+\newcommand{\docAuthor}{YOUR NAME}
+\newcommand{\docMatriculationNumber}{YOUR MATRICULATION NUMBER}
+\newcommand{\docStudyProgram}{YOUR STUDY PROGRAM}
+\newcommand{\docStudyFaculty}{YOUR STUDY FACILITY}
+\newcommand{\docStudyDegree}{YOUR STUDY DEGREE}
+\newcommand{\docStreetName}{YOUR STREET NAME}
+\newcommand{\docPostalCode}{YOUR POSTAL CODE}
+\newcommand{\docCity}{YOUR CITY}
+\newcommand{\docEmail}{YOUR E-MAIL}
+
+% Document data
+\newcommand{\docTitle}{This is the title of this thesis} % This is the main title of this document (thesis)
+\newcommand{\docSubTitle}{This is a subtitle}            % leave empty to remove
+\newcommand{\docType}{Thesis}                            % Usually this will be 'Thesis"
+\newcommand{\docSupervisor}{YOUR SUPERVISOR}             % Your supervisor
+\newcommand{\docCoSupervisor}{YOUR CO-SUPERVISOR}        % Your co-supervisor
+\newcommand{\docDeadline}{DEADLINE}                      % This is the date when you submit the document
+
+% ##################################################
+% BIBLIOGRAPHY 
+% ##################################################
+\usepackage{biblatex}
+% \addbibresource{bibliography/online.bib}
+% \addbibresource{bibliography/standards.bib}
+
+\usepackage[acronym, toc, nogroupskip, nopostdot, nonumberlist]{glossaries}
+\makeglossaries
+% \input{bibliography/acronyms}
+
+% ##################################################
+% PDF SETTINGS
+% ##################################################
+\usepackage[
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=3,
+    bookmarksnumbered,
+    plainpages=false,
+    pdfpagelabels=true,
+    hyperfootnotes,
+    pdftitle ={\docTitle},
+    pdfauthor={\docAuthor},
+    pdfcreator={\docAuthor}
+]{hyperref}
+
+% ##################################################
+% FONTS AND SPACING
+% ##################################################
+
+\renewcommand{\baselinestretch}{1.5} % default 1.5 spacing
+\raggedbottom                        % don't stretch spacing to fit page length
+\usepackage{lmodern}                 % Allow font sizes at arbitrary sizes
+
+% ##################################################
+% PAGE FORMATTING
+% ##################################################
+% Page layout, see http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf #3 Page geometry
+\usepackage[
+    bindingoffset=1.5cm, % Specify an offset if you plan to bind the document
+    inner=2.5cm,         % Left Spacing
+    outer=2.5cm,         % Right spacing
+    top=3cm,             % Top spacing
+    bottom=2cm,          % Bottom spacing
+    twoside              % Delete this if you don't want to use double-sided pages
+]{geometry}
+
+% Page header
+\usepackage[
+    headsepline,                        % seperator line beneath page header on normal pages
+    plainheadsepline                    % seperator line beneath page header on pages like ToC
+]{scrlayer-scrpage}
+\clearpairofpagestyles                  % clear default settings
+\addtokomafont{pagehead}{\normalfont}   % use normal font for page header
+\ohead*{\thepage}                       % page number
+\ihead*{\leftmark}                      % chapter name
+\setlength{\headheight}{18pt}           % set headheight to 18pt
+\addtolength{\skip\footins}{0.5cm}      % spacing at the end of page (footnotes)
+\usepackage[bottom]{footmisc}           % Always place footer at end of page
+
+\usepackage{multicol}                   % Format text in multiple columns
+\usepackage{emptypage}                  % Support for empty pages via \cleardoublepage
+\usepackage{lscape}                     % Support for landscape pages
+
+% ##################################################
+% IMAGES AND FIGURES
+% ##################################################
+\usepackage{graphicx}                   % support for including images
+\graphicspath{{img/}}                   % default path
+
+% simple numbering without chapter
+\renewcommand{\thefigure}{\arabic{figure}}
+
+% ##################################################
+% TikZ | Support for drawing diagrams
+% ##################################################
+\usepackage{tikz}
+\usepackage{float}
+\usetikzlibrary{shapes.geometric, arrows, positioning, decorations.pathreplacing, calc}
+\tikzstyle{box} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{mainbox} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{plainbox} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=white,thick]
+\tikzstyle{border} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\pgfdeclarelayer{foreground}
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main,foreground}
+
+% ##################################################
+% SUPPORT FOR TEXT IN MATH EXPRESSIONS
+% ##################################################
+\usepackage{amstext}
+
+% ##################################################
+% SUPPORT FOR DIRECTORY TREE RENDERING
+% ##################################################
+\usepackage{dirtree}
+
+% ##################################################
+% SUPPORT FOR CODE LISTINGS
+% ##################################################
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95} % Custom color for code background
+\definecolor{codegreen}{rgb}{0,0.6,0}         % Custom color for comments in your code
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}      % Custom color for numbers in your code
+\definecolor{codepurple}{rgb}{0.58,0,0.82}    % Currently unused
+
+\renewcommand{\lstlistingname}{Code Snippet} % Here you can change the code listing name
+
+\lstdefinestyle{normal}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{orange},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=none,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    rulecolor=\color{black},
+    frame=L,
+    xleftmargin=6px
+}
+\lstset{style=normal}
