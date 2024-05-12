@@ -13,10 +13,10 @@
         \vspace{1cm}
 
         {\fontsize{20}{18} \selectfont \textbf{\docType}}\\[3mm]
-        {\fontsize{16}{18} \selectfont zur Erlangung des Grades}\\[3mm]
+        {\fontsize{16}{18} \selectfont \IfLanguageName{ngerman}{zur Erlangung des Grades}{for the degree}}\\[3mm]
         {\fontsize{16}{18} \selectfont \textbf{\docStudyDegree}}\\[3mm]
-        {\fontsize{16}{18} \selectfont im Studiengang \docStudyProgram} \\[3mm]
-        {\fontsize{16}{18} \selectfont an der Fakultät \docStudyFaculty}\\
+        {\fontsize{16}{18} \selectfont \IfLanguageName{ngerman}{im Studiengang}{in} \docStudyProgram} \\[3mm]
+        {\fontsize{16}{18} \selectfont \IfLanguageName{ngerman}{an der Fakultät}{at the Faculty of} \docStudyFaculty}\\
 
         \vspace{1cm}
 
@@ -25,13 +25,13 @@
         \vspace{3cm}
 
         \begin{tabular}{ll}
-            Erstbetreuer:  & \docSupervisor                          \\\\
-            Zweitbetreuer: & \docCoSupervisor                        \\\\
-            Abgegeben am:  & \docDeadline                            \\\\
-            Abgegeben von: & \docAuthor                              \\
-                           & Matrikelnummer:~\docMatriculationNumber \\
-                           & \docStreetName,~\docPostalCode~\docCity \\
-                           & \docEmail
+            \IfLanguageName{ngerman}{Erstbetreuer}{Supervisor}:     & \docSupervisor                                                                          \\\\
+            \IfLanguageName{ngerman}{Zweitbetreuer}{Co-Supervisor}: & \docCoSupervisor                                                                        \\\\
+            \IfLanguageName{ngerman}{Abgegeben am}{Submitted on}:   & \docDeadline                                                                            \\\\
+            \IfLanguageName{ngerman}{Abgegeben von}{Submitted by}:  & \docAuthor                                                                              \\
+                                                                    & \IfLanguageName{ngerman}{Matrikelnummer}{Matriculation number}:~\docMatriculationNumber \\
+                                                                    & \docStreetName,~\docPostalCode~\docCity                                                 \\
+                                                                    & \docEmail
         \end{tabular}
     \end{flushleft}
 
