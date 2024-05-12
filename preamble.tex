@@ -1,20 +1,28 @@
-% ##################################################
-% ENCODING
-% ##################################################
-\usepackage{cmap}               % PDF character encoding
-\usepackage[T1]{fontenc}        % 8-bit font encoding
-\usepackage[utf8]{inputenc}     % UTF-8 input encoding
+% ##############################################################################
+% DOCUMENT AND PDF SETTINGS
+% ##############################################################################
 
-% ##################################################
+% --------------------------------------------------
+% ENCODING
+% --------------------------------------------------
+\usepackage{cmap}           % PDF character encoding
+\usepackage[T1]{fontenc}    % 8-bit font encoding
+\usepackage[utf8]{inputenc} % UTF-8 input encoding
+
+% --------------------------------------------------
 % LANGUAGE
-% ##################################################
+% --------------------------------------------------
 % \usepackage[ngerman]{babel} % Uncomment this if you write in German
 \usepackage{csquotes}         % Package for better quotations
 \hyphenation{}                % Here you can define custom hyphenations
-\usepackage{blindtext}        % This package can usually be deleted as this is only used to display some blindtext
 
-% ##################################################
+% This package can usually be deleted as this is only used to display some
+% blindtext.
+\usepackage{blindtext}
+
+% --------------------------------------------------
 % DOCUMENT VARIABLES
+% --------------------------------------------------
 % ##################################################
 % Personal data
 \newcommand{\docAuthor}{YOUR NAME}
@@ -48,77 +56,131 @@
 
 % ##################################################
 % PDF SETTINGS
-% ##################################################
+% --------------------------------------------------
 \usepackage[
-    colorlinks=true,
-    linkcolor=black,
-    citecolor=black,
-    filecolor=black,
-    urlcolor=black,
-    bookmarks=true,
-    bookmarksopen=true,
-    bookmarksopenlevel=3,
-    bookmarksnumbered,
-    plainpages=false,
-    pdfpagelabels=true,
-    hyperfootnotes,
-    pdftitle ={\docTitle},
-    pdfauthor={\docAuthor},
-    pdfcreator={\docAuthor}
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  filecolor=black,
+  urlcolor=black,
+  bookmarks=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=3,
+  bookmarksnumbered,
+  plainpages=false,
+  pdfpagelabels=true,
+  hyperfootnotes,
+  pdftitle ={\docTitle},
+  pdfauthor={\docAuthor},
+  pdfcreator={\docAuthor}
 ]{hyperref}
 
-% ##################################################
-% FONTS AND SPACING
-% ##################################################
-
+% ##############################################################################
+% FONTS, SPACING AND LAYOUT
+% ##############################################################################
 \renewcommand{\baselinestretch}{1.5} % default 1.5 spacing
 \raggedbottom                        % don't stretch spacing to fit page length
 \usepackage{lmodern}                 % Allow font sizes at arbitrary sizes
 
-% ##################################################
-% PAGE FORMATTING
-% ##################################################
+% --------------------------------------------------
+% PAGE LAYOUT
+% --------------------------------------------------
 % Page layout, see http://mirrors.ctan.org/macros/latex/contrib/geometry/geometry.pdf #3 Page geometry
 \usepackage[
-    bindingoffset=1.5cm, % Specify an offset if you plan to bind the document
-    inner=2.5cm,         % Left Spacing
-    outer=2.5cm,         % Right spacing
-    top=3cm,             % Top spacing
-    bottom=2cm,          % Bottom spacing
-    twoside              % Delete this if you don't want to use double-sided pages
+  bindingoffset=1.5cm, % Specify an offset if you plan to bind the document
+  inner=2.5cm,         % Left Spacing
+  outer=2.5cm,         % Right spacing
+  top=3cm,             % Top spacing
+  bottom=2cm,          % Bottom spacing
+  twoside              % Delete this if you don't want to use double-sided pages
 ]{geometry}
 
-% Page header
+% --------------------------------------------------
+% PAGE HEADER
+% --------------------------------------------------
 \usepackage[
-    headsepline,                        % seperator line beneath page header on normal pages
-    plainheadsepline                    % seperator line beneath page header on pages like ToC
+  headsepline,     % seperator line beneath page header on normal pages
+  plainheadsepline % seperator line beneath page header on pages like ToC
 ]{scrlayer-scrpage}
+
 \clearpairofpagestyles                  % clear default settings
 \addtokomafont{pagehead}{\normalfont}   % use normal font for page header
 \ohead*{\thepage}                       % page number
 \ihead*{\leftmark}                      % chapter name
 \setlength{\headheight}{18pt}           % set headheight to 18pt
+
+% --------------------------------------------------
+% PAGE FOOTER
+% --------------------------------------------------
 \addtolength{\skip\footins}{0.5cm}      % spacing at the end of page (footnotes)
 \usepackage[bottom]{footmisc}           % Always place footer at end of page
 
+% --------------------------------------------------
+% LAYOUT PACKAGES
+% --------------------------------------------------
 \usepackage{multicol}                   % Format text in multiple columns
 \usepackage{emptypage}                  % Support for empty pages via \cleardoublepage
 \usepackage{lscape}                     % Support for landscape pages
 
-% ##################################################
-% IMAGES AND FIGURES
-% ##################################################
-\usepackage{graphicx}                   % support for including images
-\graphicspath{{img/}}                   % default path
+% ##############################################################################
+% UTILITY PACKAGES
+% ##############################################################################
+\usepackage{environ} % Define custom environments
 
-% simple numbering without chapter
+% ##############################################################################
+% BIBLIOGRAPHY
+% ##############################################################################
+% Support referencing external sources using the biblatex format.
+\usepackage[urldate=comp]{biblatex}
+
+% Sources can be added by specifying the below command one or more times.
+\addbibresource{bibliography/test.bib}
+
+\usepackage[acronym, toc, nogroupskip, nopostdot, nonumberlist]{glossaries}
+\makeglossaries
+% \input{bibliography/acronyms}
+
+% ##############################################################################
+% IMAGES, FIGURES, DIAGRAMS AND TABLES
+% ##############################################################################
+\usepackage{graphicx}                   % Support for including images
+\graphicspath{{img/}}                   % Default path
+
+% Simple numbering without chapter
 \renewcommand{\thefigure}{\arabic{figure}}
 
-% ##################################################
-% TikZ | Support for drawing diagrams
-% ##################################################
-\usepackage{tikz}
-\usepackage{float}
+% --------------------------------------------------
+% TABLES
+% --------------------------------------------------
+\usepackage{tabularray}           % Improves tabular and longtable
+\UseTblrLibrary{varwidth,counter} % Enable support for varwidth (better width measurement) & counters (counters don't step multiple times)
+
+% Defines a new custom table environment named 'longtbl'. It has support these
+% parameters: Optional (default empty) custom options for tabularray's longtblr,
+% the colspec and the caption.
+\NewEnviron{longtbl}[3][]{
+  \begin{longtblr}[caption={#3},expand=\BODY]{
+      colspec = {#2},
+      width = \linewidth,
+      measure = vbox,
+      hline{1} = {0.4pt},
+      hline{2} = {1pt},
+      hline{3-Z} = {0.4pt},
+      row{1} = {font = \bfseries},
+      row{2-Z} = {font = \ttfamily},
+      #1
+    }
+    \BODY
+  \end{longtblr}
+}
+
+% --------------------------------------------------
+% TIKZ DIAGRAMS
+% --------------------------------------------------
+\usepackage{tikz}      % Draw TikZ figures
+\usepackage{float}     % Floating objects
+\usepackage{bytefield} % Draw network protocal packets
+
 \usetikzlibrary{shapes.geometric, arrows, positioning, decorations.pathreplacing, calc}
 \tikzstyle{box} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 \tikzstyle{mainbox} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
@@ -130,19 +192,21 @@
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main,foreground}
 
-% ##################################################
-% SUPPORT FOR TEXT IN MATH EXPRESSIONS
-% ##################################################
-\usepackage{amstext}
+% Automatically include TikZ figures from external .tix files, setting the
+% caption and label.
+\newcommand{\tikzfigure}[3]{%
+  \vspace{\baselineskip}%
+  \begin{figure}[H]%
+    \centering%
+    \input{#1.tikz}%
+    \caption{#2}%
+    \label{fig:#3}%
+  \end{figure}%
+}
 
-% ##################################################
-% SUPPORT FOR DIRECTORY TREE RENDERING
-% ##################################################
-\usepackage{dirtree}
-
-% ##################################################
-% SUPPORT FOR CODE LISTINGS
-% ##################################################
+% ##############################################################################
+% CODE LISTINGS
+% ##############################################################################
 \usepackage{listings}
 \usepackage{color}
 \usepackage{xcolor}
@@ -155,24 +219,38 @@
 \renewcommand{\lstlistingname}{Code Snippet} % Here you can change the code listing name
 
 \lstdefinestyle{normal}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{orange},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=none,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2,
-    rulecolor=\color{black},
-    frame=L,
-    xleftmargin=6px
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{orange},
+  basicstyle=\ttfamily\small,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=none,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  rulecolor=\color{black},
+  frame=L,
+  xleftmargin=6px
 }
 \lstset{style=normal}
+
+% ##############################################################################
+% MISCELLANEOUS
+% ##############################################################################
+
+% --------------------------------------------------
+% SUPPORT FOR TEXT IN MATH EXPRESSIONS
+% --------------------------------------------------
+\usepackage{amstext}
+
+% --------------------------------------------------
+% SUPPORT FOR DIRECTORY TREE RENDERING
+% --------------------------------------------------
+\usepackage{dirtree}
